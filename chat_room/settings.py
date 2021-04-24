@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+import pygments
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # custom app
     'chat',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -114,6 +115,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Settings for shell_plus
+# ======================================================================================================================
+SHELL_PLUS = "ipython"
+
+SHELL_PLUS_PRINT_SQL = True
+
+# Truncate sql queries to this number of characters
+SHELL_PLUS_PRINT_SQL_TRUNCATE = 1000
+
+# Specify sqlparse configuration options when printing sql queries to the console
+SHELL_PLUS_SQLPARSE_FORMAT_KWARGS = dict(
+    reindent_aligned=True,
+    truncate_strings=500,
+)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -133,3 +149,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
